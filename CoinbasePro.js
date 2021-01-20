@@ -1,0 +1,44 @@
+var WebSocketClient = require('websocket').client;
+var client = new WebSocketClient();
+var url = 'wss://ws-feed.pro.coinbase.com';
+var subscription = {
+  type: "subscribe",
+  product_ids: ["BTC-USD"],
+  channels: [{
+    name: "ticker"
+  }]
+}
+
+client.on('connectFailed', function(error) {
+  console.log('Connect Error:', error.toString());
+});
+
+client.on('connect', function(connection) {
+  console.log('Websocket Client Connected');
+  connection.on('error', function(error) {
+    console.log('Connection Error', error.toString());
+  });
+  connection.on('close', function() {
+    console.log('Connection Closed');
+  });
+  connection.on('message', function(message) {
+    if (message.type === 'utf8') {
+      // console.log('Received:', message.utf8Data);
+      let data = JSON.parse(message.utf8Data);
+      let type = data.type;
+      switch (type) {
+        case 'subscriptions':
+          console.log('Subscriptions:', data.channels);
+          break;
+        case 'ticker':
+          console.log(data.time, 'BTC-USD', data.side, data.price);
+          break;
+        default:
+          console.log('UNIMPLEMENTED TYPE CASE:', type);
+      }
+    }
+  });
+  connection.sendUTF(JSON.stringify(subscription))
+});
+
+client.connect(url, null, null, null, null);
