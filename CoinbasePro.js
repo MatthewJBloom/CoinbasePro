@@ -1,10 +1,10 @@
 const Notification = require('./Notify').Notification;
 const WebSocketClient = require('websocket').client;
 
-var priceAlert = new Notification();
-var client = new WebSocketClient();
-var url = 'wss://ws-feed.pro.coinbase.com';
-var subscription = {
+let priceAlert = new Notification();
+let client = new WebSocketClient();
+let url = 'wss://ws-feed.pro.coinbase.com';
+let subscription = {
   type: "subscribe",
   product_ids: ["BTC-USD"],
   channels: [{name: "ticker"}]
