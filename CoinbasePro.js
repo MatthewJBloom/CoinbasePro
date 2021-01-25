@@ -15,7 +15,7 @@ client.on('connectFailed', function(error) {
 });
 
 client.on('connect', function(connection) {
-  console.log('Websocket Client Connected');
+  console.log('Coinbase Pro Websocket Feed Connected');
   connection.on('error', function(error) {
     console.log('Connection Error', error.toString());
   });
@@ -27,12 +27,13 @@ client.on('connect', function(connection) {
       // console.log('Received:', message.utf8Data);
       let data = JSON.parse(message.utf8Data);
       let type = data.type;
+      let timestamp = new Date(data.time)
       switch (type) {
         case 'subscriptions':
           console.log('Subscriptions:', data.channels);
           break;
         case 'ticker':
-          console.log(data.time, 'BTC-USD', data.side, data.price);
+          console.log(timestamp.toLocaleTimeString(), '|', data.product_id, data.side, data.price);
           break;
         default:
           console.log('UNIMPLEMENTED TYPE CASE:', type);
@@ -42,7 +43,7 @@ client.on('connect', function(connection) {
     }
   });
   connection.sendUTF(JSON.stringify(subscription));
-  priceAlert.send();
+  // priceAlert.send();
 });
 
 client.connect(url);
