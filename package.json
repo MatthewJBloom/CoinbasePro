@@ -1,0 +1,24 @@
+{
+  "name": "coinbasepro",
+  "version": "1.0.0",
+  "description": "Whiteboard for the CoinbasePro API",
+  "main": "CoinbasePro.js",
+  "dependencies": {
+    "node-notifier": "^9.0.0",
+    "websocket": "^1.0.33"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MatthewJBloom/CoinbasePro.git"
+  },
+  "author": "Matthew Bloom",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MatthewJBloom/CoinbasePro/issues"
+  },
+  "homepage": "https://github.com/MatthewJBloom/CoinbasePro#readme"
+}
