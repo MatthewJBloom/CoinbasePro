@@ -4,9 +4,7 @@ var url = 'wss://ws-feed.pro.coinbase.com';
 var subscription = {
   type: "subscribe",
   product_ids: ["BTC-USD"],
-  channels: [{
-    name: "ticker"
-  }]
+  channels: [{name: "ticker"}]
 }
 
 client.on('connectFailed', function(error) {
@@ -41,4 +39,4 @@ client.on('connect', function(connection) {
   connection.sendUTF(JSON.stringify(subscription))
 });
 
-client.connect(url, null, null, null, null);
+client.connect(url);
