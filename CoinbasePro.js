@@ -1,6 +1,7 @@
-var Notify = require('./Notify').Notification;
-var notification = new Notify();
-var WebSocketClient = require('websocket').client;
+const Notification = require('./Notify').Notification;
+const WebSocketClient = require('websocket').client;
+
+var priceAlert = new Notification();
 var client = new WebSocketClient();
 var url = 'wss://ws-feed.pro.coinbase.com';
 var subscription = {
@@ -15,7 +16,6 @@ client.on('connectFailed', function(error) {
 
 client.on('connect', function(connection) {
   console.log('Websocket Client Connected');
-  notification.notify()
   connection.on('error', function(error) {
     console.log('Connection Error', error.toString());
   });
@@ -37,9 +37,12 @@ client.on('connect', function(connection) {
         default:
           console.log('UNIMPLEMENTED TYPE CASE:', type);
       }
+    } else {
+      console.log('Message received not utf8')
     }
   });
-  connection.sendUTF(JSON.stringify(subscription))
+  connection.sendUTF(JSON.stringify(subscription));
+  priceAlert.send();
 });
 
 client.connect(url);

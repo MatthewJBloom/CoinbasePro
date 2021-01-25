@@ -25,17 +25,23 @@ const WindowsToaster = require('node-notifier').WindowsToaster;
 class Notification {
   constructor() {
     this.notifier = new WindowsToaster({withFallback: false});
+    this.sent = false;
   }
-  notify() {
-    this.notifier.notify(
-      {
-        title: "CoinbasePro Alert",
-        message: "This is a price alert for CoinbasePro"
-      },
-      function (error, response) {
-        console.log(response);
-      }
-    );
+  send() {
+    if (!this.sent) {
+      this.notifier.notify(
+        {
+          title: "CoinbasePro Alert",
+          message: "This is a price alert for CoinbasePro"
+        },
+        function (error, response) {
+          console.log(response);
+        }
+      );
+    } else {
+      console.log('Notification already sent')
+    }
+    this.sent = true;
   }
 }
 
