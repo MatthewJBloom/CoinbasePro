@@ -24,7 +24,7 @@ const WindowsToaster = require('node-notifier').WindowsToaster;
 
 class Notification {
   constructor() {
-    this.notifier = new WindowsToaster({withFallback: false, customPath: undefined});
+    this.notifier = new WindowsToaster({withFallback: false});
   }
   notify() {
     this.notifier.notify(
