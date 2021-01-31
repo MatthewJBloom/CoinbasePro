@@ -12,9 +12,11 @@ todo:
 - [x] practice writing unit tests
 - [x] re-write in node.js
 - [x] practice websocket feed
-- [ ] class-ify coinbasepro.js
-- [ ] implement ^ in whiteboard.js
+- [x] class-ify coinbasepro.js
+- [x] implement ^ in whiteboard.js
 - [ ] probably rename the coinbasepro references (maybe CoinbaseProFeed?)
+- [ ] implement an EventEmitter with CoinbaseProFeed
+- [ ] pass the EventEmitter to Notify so the Notification will "listen" for prices, etc.
 
 
 ideas:

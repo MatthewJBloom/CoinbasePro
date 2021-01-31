@@ -1,4 +1,5 @@
 const WebSocketClient = require('websocket').client;
+const EventEmitter = require('events');
 
 /**
  * Represents a CoinbasePro Websocket feed
@@ -7,6 +8,7 @@ const WebSocketClient = require('websocket').client;
 class CoinbaseProFeed {
   constructor() {
     this.client = new WebSocketClient();
+    this.priceEventEmitter = new EventEmitter();
     this.url = "wss://ws-feed.pro.coinbase.com";
     this.subscription = {
       type: "subscribe",
@@ -17,10 +19,6 @@ class CoinbaseProFeed {
     this.configureClient();
   } // constructor()
 
-  startFeed() {
-    this.client.connect(this.url);
-  } // startFeed()
-
   configureClient() {
     let client = this.client;
     client.on('connectFailed', (error) => {
@@ -30,6 +28,16 @@ class CoinbaseProFeed {
       this.handleConnection(connection);
     });
   } // configureClient()
+
+  startFeed() {
+    this.client.connect(this.url);
+  } // startFeed()
+
+  get priceEvents() {
+    return this.priceEventEmitter;
+  }
+
+  // ---- HANDLERS ---- //
 
   handleConnectFailed(error) {
     console.log('Connect Error:', error.toString());
@@ -70,6 +78,7 @@ class CoinbaseProFeed {
           break;
         case 'ticker':
           console.log(timestamp.toLocaleTimeString(), '|', data.product_id, data.side, data.price);
+          this.priceEventEmitter.emit('price', data.price);
           break;
         default:
           console.log('UNIMPLEMENTED TYPE CASE:', type);
