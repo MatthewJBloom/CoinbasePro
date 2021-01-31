@@ -28,7 +28,7 @@ const WindowsToaster = require('node-notifier').WindowsToaster;
 /**
  * Represents a notification
  * @param {dictionary} content - The contents of the notification
- * 
+ *
  */
 class Notification {
   constructor(content = {}) {
@@ -45,7 +45,7 @@ class Notification {
     if (!this.hasBeenSent) {
       this.windowsToaster.notify(
         this.content,
-        function (error, response) {
+        (error, response) => {
           console.log(response);
         }
       );
