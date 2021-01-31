@@ -62,14 +62,15 @@ class CoinbaseProFeed {
       // console.log('Received:', message.utf8Data);
       let data = JSON.parse(message.utf8Data);
       let type = data.type;
-      let timestamp = new Date(data.time);
-      timestamp = timestamp.toLocaleTimeString()
+      // let timestamp = new Date(data.time);
+      // timestamp = timestamp.toLocaleTimeString();
       switch (type) {
         case 'subscriptions':
           console.log('Subscriptions:', data.channels);
           break;
         case 'ticker':
-          console.log(timestamp, '|', data.product_id, data.side, data.price);
+          // console.log(timestamp, '|', data.product_id, data.side, data.price);
+          this.printTicker(data);
           this.priceEventEmitter.emit('price', data.price);
           break;
         default:
@@ -79,6 +80,26 @@ class CoinbaseProFeed {
       console.log('Message received not utf8. Type:', message.type)
     } // if (message.type === 'utf8')
   } // handleConnectionMessage(message)
+
+  printTicker(data) {
+    // console.log(data);
+    let timestamp = new Date(data.time).toLocaleTimeString();
+    let product = data.product_id;
+    let side = data.side;
+    let resetColor = "\x1b[0m"; // reset
+    let color = resetColor;
+    if (data.side === "buy") {
+      side = "➚";
+      color = "\x1b[32m"; // green
+    } else if (data.side === "sell"){
+      side = "➘";
+      color = "\x1b[31m"; // red
+    }
+    let amount = parseFloat(data.last_size).toFixed(8);
+    let price = parseFloat(data.price).toFixed(2);
+    let message = `${timestamp} | ${product} | ${amount} @ ${color}$${price}${side}${resetColor}`;
+    console.log(message);
+  }
 
 } // CoinbaseProFeed
 

@@ -38,15 +38,14 @@ class Notification {
     this.content = {
       title: content.title || "Notification",
       message: content.message || "Message",
-      icon: content.icon || "./assets/BTC.png"
+      icon: content.icon || "./assets/BTC.png",
+      sound: true
     };
     this.trigger = {
       price: trigger.price || undefined, // xxx.xx
       side: trigger.side || undefined // "high" or "low"
     };
     this.priceEvents = undefined;
-    console.log(this.content);
-    console.log(this.trigger);
   } // constructor(content ={})
 
   listen(priceEvents) {
@@ -73,7 +72,7 @@ class Notification {
       this.windowsToaster.notify(
         this.content,
         (error, response) => {
-          console.log(error || response);
+          // console.log(error || response);
         }
       );
       this.hasBeenSent = true;

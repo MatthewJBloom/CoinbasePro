@@ -8,7 +8,7 @@ const Notification = require('./src/Notify').Notification;
 let feed = new CoinbaseProFeed();
 feed.startFeed();
 
-let p1 = 1;
+let p1 = 32950;
 let content = {title: "BTC Price", message: `BTC over ${p1}`};
 let trigger = {price: p1, side: "high"};
 let notif = new Notification(content, trigger);
