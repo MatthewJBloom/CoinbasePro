@@ -46,7 +46,7 @@ class Notification {
       this.windowsToaster.notify(
         this.content,
         (error, response) => {
-          console.log(response);
+          console.log(error || response);
         }
       );
       this.hasBeenSent = true;
