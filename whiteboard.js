@@ -9,10 +9,7 @@ let feed = new CoinbaseProFeed();
 feed.startFeed();
 
 let p1 = 1;
-let notif = new Notification({
-    message: `BTC over ${p1}`
-  },{
-    price: p1,
-    side: "high"
-  });
+let content = {title: "BTC Price", message: `BTC over ${p1}`};
+let trigger = {price: p1, side: "high"};
+let notif = new Notification(content, trigger);
 notif.listen(feed.priceEvents);

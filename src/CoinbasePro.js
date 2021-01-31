@@ -21,12 +21,8 @@ class CoinbaseProFeed {
 
   configureClient() {
     let client = this.client;
-    client.on('connectFailed', (error) => {
-      this.handleConnectFailed(error);
-    });
-    client.on('connect', (connection) => {
-      this.handleConnection(connection);
-    });
+    client.on('connectFailed', this.handleConnectFailed.bind(this));
+    client.on('connect', this.handleConnection.bind(this));
   } // configureClient()
 
   startFeed() {
@@ -48,15 +44,9 @@ class CoinbaseProFeed {
     // send subscriptions (must do before 5 seconds or conn closes)
     connection.sendUTF(JSON.stringify(this.subscription));
     // handle connection events
-    connection.on('error', (error) => {
-      this.handleConnectionError(error);
-    });
-    connection.on('close', () => {
-      this.handleConnectionClose()
-    });
-    connection.on('message', (message) => {
-      this.handleConnectionMessage(message);
-    });
+    connection.on('error', this.handleConnectionError.bind(this));
+    connection.on('close', this.handleConnectionClose.bind(this));
+    connection.on('message', this.handleConnectionMessage.bind(this));
   } // handleConnection(connection)
 
   handleConnectionError(error) {
@@ -80,10 +70,7 @@ class CoinbaseProFeed {
           break;
         case 'ticker':
           console.log(timestamp, '|', data.product_id, data.side, data.price);
-          // if anyone is listening...
-          if ( this.priceEventEmitter.listenerCount('price') ) {
-            this.priceEventEmitter.emit('price', data.price);
-          }
+          this.priceEventEmitter.emit('price', data.price);
           break;
         default:
           console.log('UNIMPLEMENTED TYPE CASE:', type);

@@ -45,24 +45,28 @@ class Notification {
       side: trigger.side || undefined // "high" or "low"
     };
     this.priceEvents = undefined;
+    console.log(this.content);
+    console.log(this.trigger);
   } // constructor(content ={})
 
   listen(priceEvents) {
     if (this.priceEvents == undefined) {
       this.priceEvents = priceEvents;
     }
-    this.priceEvents.on('price', (price) => {
-      if (this.trigger.side === "high") {
-        if (price > this.trigger.price) {
-          this.send();
-        }
-      } else if (this.trigger.side === "low") {
-        if (price < this.trigger.price) {
-          this.send();
-        }
-      }
-    });
+    this.priceEvents.on('price', this.priceEventHandler.bind(this));
   } // listen(priceEvents)
+
+  priceEventHandler(price) {
+    if (this.trigger.side === "high") {
+      if (price > this.trigger.price) {
+        this.send();
+      }
+    } else if (this.trigger.side === "low") {
+      if (price < this.trigger.price) {
+        this.send();
+      }
+    }
+  } // priceEventHandler(price)
 
   send() {
     if (!this.hasBeenSent) {
@@ -74,8 +78,7 @@ class Notification {
       );
       this.hasBeenSent = true;
     } else {
-      console.log('Notification already sent');
-      this.priceEvents.removeListener('price', ()=>{console.log('removed')});
+      // console.log('Notification already sent');
     } // if (!this.hasBeenSent)
   } // send()
 
