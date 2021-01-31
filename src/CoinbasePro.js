@@ -66,7 +66,8 @@ class CoinbaseProFeed {
       // timestamp = timestamp.toLocaleTimeString();
       switch (type) {
         case 'subscriptions':
-          console.log('Subscriptions:', data.channels);
+          // console.log('Subscriptions:', data.channels);
+          this.printSubscriptions(data);
           break;
         case 'ticker':
           // console.log(timestamp, '|', data.product_id, data.side, data.price);
@@ -80,6 +81,15 @@ class CoinbaseProFeed {
       console.log('Message received not utf8. Type:', message.type)
     } // if (message.type === 'utf8')
   } // handleConnectionMessage(message)
+
+  printSubscriptions(data) {
+    // console.log(data);
+    let timestamp = new Date().toLocaleTimeString();
+    let product = data.channels[0].product_ids[0];
+    let channel = data.channels[0].name;
+    let message = `${timestamp} | ${product} | ${channel}`;
+    console.log(message);
+  } // printSubscriptions(data)
 
   printTicker(data) {
     // console.log(data);
@@ -99,7 +109,7 @@ class CoinbaseProFeed {
     let price = parseFloat(data.price).toFixed(2);
     let message = `${timestamp} | ${product} | ${amount} @ ${color}$${price}${side}${resetColor}`;
     console.log(message);
-  }
+  } // printTicker(data)
 
 } // CoinbaseProFeed
 

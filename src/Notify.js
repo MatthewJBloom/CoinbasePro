@@ -35,6 +35,7 @@ class Notification {
   constructor(content = {}, trigger = {}) {
     this.windowsToaster = new WindowsToaster({withFallback: false});
     this.hasBeenSent = false;
+    this.singleUse = true;
     this.content = {
       title: content.title || "Notification",
       message: content.message || "Message",
@@ -75,7 +76,9 @@ class Notification {
           // console.log(error || response);
         }
       );
-      this.hasBeenSent = true;
+      if (this.singleUse) {
+        this.hasBeenSent = true;
+      }
     } else {
       // console.log('Notification already sent');
     } // if (!this.hasBeenSent)
