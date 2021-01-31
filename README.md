@@ -15,8 +15,10 @@ todo:
 - [x] class-ify coinbasepro.js
 - [x] implement ^ in whiteboard.js
 - [ ] probably rename the coinbasepro references (maybe CoinbaseProFeed?)
-- [ ] implement an EventEmitter with CoinbaseProFeed
-- [ ] pass the EventEmitter to Notify so the Notification will "listen" for prices, etc.
+- [x] implement an EventEmitter with CoinbaseProFeed
+- [x] pass the EventEmitter to Notify so the Notification will "listen" for prices, etc.
+- [ ] move event listening management outside of notification...
+- [ ] maybe a "notification manager/router" class that listens for coinbasepro events, checks for active notifications, and can trigger them
 
 
 ideas:

@@ -1,14 +1,18 @@
-// const Notification = require('./src/Notify').Notification;
-//
+const CoinbaseProFeed = require('./src/CoinbasePro').CoinbaseProFeed;
+const Notification = require('./src/Notify').Notification;
+
 // let notif = new Notification({message: "test"});
 // notif.send();
-//
-//
-//
-const CoinbaseProFeed = require('./src/CoinbasePro').CoinbaseProFeed;
+
 
 let feed = new CoinbaseProFeed();
 feed.startFeed();
-feed.priceEvents.on('price', (price) => {
-  console.log(price)
-});
+
+let p1 = 1;
+let notif = new Notification({
+    message: `BTC over ${p1}`
+  },{
+    price: p1,
+    side: "high"
+  });
+notif.listen(feed.priceEvents);

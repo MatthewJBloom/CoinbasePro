@@ -1,4 +1,5 @@
 const WindowsToaster = require('node-notifier').WindowsToaster;
+const EventEmitter = require('events');
 
 /**
  * DOCUMENTATION FOR WINDOWSTOASTER
@@ -31,7 +32,7 @@ const WindowsToaster = require('node-notifier').WindowsToaster;
  *
  */
 class Notification {
-  constructor(content = {}) {
+  constructor(content = {}, trigger = {}) {
     this.windowsToaster = new WindowsToaster({withFallback: false});
     this.hasBeenSent = false;
     this.content = {
@@ -39,7 +40,29 @@ class Notification {
       message: content.message || "Message",
       icon: content.icon || "./assets/BTC.png"
     };
+    this.trigger = {
+      price: trigger.price || undefined, // xxx.xx
+      side: trigger.side || undefined // "high" or "low"
+    };
+    this.priceEvents = undefined;
   } // constructor(content ={})
+
+  listen(priceEvents) {
+    if (this.priceEvents == undefined) {
+      this.priceEvents = priceEvents;
+    }
+    this.priceEvents.on('price', (price) => {
+      if (this.trigger.side === "high") {
+        if (price > this.trigger.price) {
+          this.send();
+        }
+      } else if (this.trigger.side === "low") {
+        if (price < this.trigger.price) {
+          this.send();
+        }
+      }
+    });
+  } // listen(priceEvents)
 
   send() {
     if (!this.hasBeenSent) {
@@ -52,6 +75,7 @@ class Notification {
       this.hasBeenSent = true;
     } else {
       console.log('Notification already sent');
+      this.priceEvents.removeListener('price', ()=>{console.log('removed')});
     } // if (!this.hasBeenSent)
   } // send()
 

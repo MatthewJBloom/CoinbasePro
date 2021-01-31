@@ -35,7 +35,7 @@ class CoinbaseProFeed {
 
   get priceEvents() {
     return this.priceEventEmitter;
-  }
+  } // get priceEvents()
 
   // ---- HANDLERS ---- //
 
@@ -45,6 +45,9 @@ class CoinbaseProFeed {
 
   handleConnection(connection) {
     console.log('Coinbase Pro Websocket Feed Connected');
+    // send subscriptions (must do before 5 seconds or conn closes)
+    connection.sendUTF(JSON.stringify(this.subscription));
+    // handle connection events
     connection.on('error', (error) => {
       this.handleConnectionError(error);
     });
@@ -54,8 +57,6 @@ class CoinbaseProFeed {
     connection.on('message', (message) => {
       this.handleConnectionMessage(message);
     });
-    // send subscriptions (must do before 5 seconds or conn closes)
-    connection.sendUTF(JSON.stringify(this.subscription));
   } // handleConnection(connection)
 
   handleConnectionError(error) {
@@ -71,20 +72,24 @@ class CoinbaseProFeed {
       // console.log('Received:', message.utf8Data);
       let data = JSON.parse(message.utf8Data);
       let type = data.type;
-      let timestamp = new Date(data.time)
+      let timestamp = new Date(data.time);
+      timestamp = timestamp.toLocaleTimeString()
       switch (type) {
         case 'subscriptions':
           console.log('Subscriptions:', data.channels);
           break;
         case 'ticker':
-          console.log(timestamp.toLocaleTimeString(), '|', data.product_id, data.side, data.price);
-          this.priceEventEmitter.emit('price', data.price);
+          console.log(timestamp, '|', data.product_id, data.side, data.price);
+          // if anyone is listening...
+          if ( this.priceEventEmitter.listenerCount('price') ) {
+            this.priceEventEmitter.emit('price', data.price);
+          }
           break;
         default:
           console.log('UNIMPLEMENTED TYPE CASE:', type);
       }
     } else {
-      console.log('Message received not utf8')
+      console.log('Message received not utf8. Type:', message.type)
     } // if (message.type === 'utf8')
   } // handleConnectionMessage(message)
 
