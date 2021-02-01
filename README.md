@@ -18,7 +18,9 @@ todo:
 - [x] implement an EventEmitter with CoinbaseProFeed
 - [x] pass the EventEmitter to Notify so the Notification will "listen" for prices, etc.
 - [ ] move event listening management outside of notification...
-- [ ] maybe a "notification manager/router" class that listens for coinbasepro events, checks for active notifications, and can trigger them
+- [ ] "notification manager/router" class that listens for coinbasepro events, checks for active notifications, and can trigger them
+- [ ] make some unit tests 🙃 (the python ones were good, should be easy)
+- [ ] make app.js to run as a server listening for notification creations? maybe?
 
 
 ideas:
