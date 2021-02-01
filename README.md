@@ -14,7 +14,7 @@ todo:
 - [x] practice websocket feed
 - [x] class-ify coinbasepro.js
 - [x] implement ^ in whiteboard.js
-- [ ] probably rename the coinbasepro references (maybe CoinbaseProFeed?)
+- [x] probably rename the coinbasepro references (maybe CoinbaseProFeed?)
 - [x] implement an EventEmitter with CoinbaseProFeed
 - [x] pass the EventEmitter to Notify so the Notification will "listen" for prices, etc.
 - [ ] move event listening management outside of notification...
