@@ -1,4 +1,4 @@
-const CoinbaseProFeed = require('./src/CoinbasePro').CoinbaseProFeed;
+const CoinbaseProFeed = require('./src/CoinbaseProFeed');
 const Notification = require('./src/Notify').Notification;
 
 // let notif = new Notification({message: "test"});

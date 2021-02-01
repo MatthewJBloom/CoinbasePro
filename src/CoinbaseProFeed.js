@@ -82,6 +82,8 @@ class CoinbaseProFeed {
     } // if (message.type === 'utf8')
   } // handleConnectionMessage(message)
 
+  // ---- PRINT FORMATTERS ---- //
+
   printSubscriptions(data) {
     // console.log(data);
     let timestamp = new Date().toLocaleTimeString();
@@ -113,4 +115,4 @@ class CoinbaseProFeed {
 
 } // CoinbaseProFeed
 
-exports.CoinbaseProFeed = CoinbaseProFeed;
+module.exports = CoinbaseProFeed;
