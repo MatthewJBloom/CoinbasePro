@@ -4,6 +4,7 @@
   "description": "Whiteboard for the CoinbasePro API",
   "main": "CoinbasePro.js",
   "dependencies": {
+    "https": "^1.0.0",
     "node-notifier": "^9.0.0",
     "websocket": "^1.0.33"
   },
