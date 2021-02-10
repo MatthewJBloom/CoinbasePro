@@ -1,5 +1,4 @@
 const WindowsToaster = require('node-notifier').WindowsToaster;
-const EventEmitter = require('events');
 
 /**
  * DOCUMENTATION FOR WINDOWSTOASTER
@@ -28,52 +27,37 @@ const EventEmitter = require('events');
 
 /**
  * Represents a notification
+ * @param {string} id - The ID of the Notification
+ * @param {string} coin_id - The name of the coin, sets notification details
+ * @param {float} price - The USD amount at which to notify
+ * @param {string} position - "above" or "below" TODO: calc this from live price
  * @param {dictionary} content - The contents of the notification
  *
  */
 class Notification {
-  constructor(content = {}, trigger = {}) {
+  constructor(id, coin_id = "BTC", price = undefined, position = undefined, content = {}) {
+    this.id = id
     this.windowsToaster = new WindowsToaster({withFallback: false});
     this.hasBeenSent = false;
     this.singleUse = true;
+    this.price = price;
+    this.position = position; // "above" or "below"
     this.content = {
       title: content.title || "Notification",
       message: content.message || "Message",
-      icon: content.icon || "./assets/BTC.png",
-      sound: true
-    };
-    this.trigger = {
-      price: trigger.price || undefined, // xxx.xx
-      side: trigger.side || undefined // "high" or "low"
+      icon: content.icon || `./assets/${coin_id}.png`,
+      sound: content.sound || true
     };
     this.priceEvents = undefined;
-  } // constructor(content ={})
-
-  listen(priceEvents) {
-    if (this.priceEvents == undefined) {
-      this.priceEvents = priceEvents;
-    }
-    this.priceEvents.on('price', this.priceEventHandler.bind(this));
-  } // listen(priceEvents)
-
-  priceEventHandler(price) {
-    if (this.trigger.side === "high") {
-      if (price > this.trigger.price) {
-        this.send();
-      }
-    } else if (this.trigger.side === "low") {
-      if (price < this.trigger.price) {
-        this.send();
-      }
-    }
-  } // priceEventHandler(price)
+  } // constructor(id, coin_id, price, content)
 
   send() {
+    console.log(this)
     if (!this.hasBeenSent) {
       this.windowsToaster.notify(
         this.content,
         (error, response) => {
-          // console.log(error || response);
+          console.log(error || response);
         }
       );
       if (this.singleUse) {
@@ -86,4 +70,4 @@ class Notification {
 
 } // Notification
 
-exports.Notification = Notification;
+module.exports = Notification;
