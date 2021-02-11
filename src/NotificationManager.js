@@ -1,9 +1,9 @@
 const Notification = require('./Notify');
-const EventEmitter = require('events');
 
 /**
  * Represents a handler/manager for Notifications
- *
+ * Start by setting the priceEvents via listen(priceEvents)
+ * Then, make a new notification via newNotification(coin_id, price)
  */
 class NotificationManager {
   constructor() {
@@ -11,12 +11,18 @@ class NotificationManager {
     this.priceEvents = undefined;
   } // constructor()
 
+  /**
+   * Create a new notification and add it to the notifications dict.
+   * @param {string} coin_id - The name of the coin, e.g. "BTC"
+   * @param {float} price - The price to notify on, e.g. 50000.00
+   * @return {Notification} notification - The id & notification
+   */
   async newNotification(coin_id, price) {
     let notification_id = this.getNewID();
     let position = await this.getNewPosition(price);
     let notification = new Notification(notification_id, coin_id, price, position);
     this.notifications[notification_id] = notification;
-    return { notification_id, notification };
+    return notification;
   } // newNotification(price)
 
   getNewID() {
