@@ -47,7 +47,7 @@ class Notification {
       icon: `./assets/${coin_id}.png`,
       sound: true
     };
-    console.log('new notification created', this)
+    // console.log('new notification created', this)
   } // constructor(id, coin_id, price, content)
 
 

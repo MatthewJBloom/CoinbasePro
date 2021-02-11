@@ -12,5 +12,6 @@ feed.startFeed();
 
 let notificationManager = new NotificationManager();
 notificationManager.listen(feed.priceEvents);
-let notification = notificationManager.newNotification(coin_id, price);
-console.log('waiting for notification:', notification)
+notificationManager.newNotification(coin_id, price).then(notification => {
+  console.log('waiting for notification:', notification.id);
+});

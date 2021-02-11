@@ -15,19 +15,18 @@ class NotificationManager {
    * Create a new notification and add it to the notifications dict.
    * @param {string} coin_id - The name of the coin, e.g. "BTC"
    * @param {float} price - The price to notify on, e.g. 50000.00
-   * @return {Notification} notification - The id & notification
+   * @returns {Promise} notification - The notification
    */
   async newNotification(coin_id, price) {
-    let notification_id = this.getNewID();
+    let notification_id = this.getNewID(coin_id, price);
     let position = await this.getNewPosition(price);
     let notification = new Notification(notification_id, coin_id, price, position);
     this.notifications[notification_id] = notification;
     return notification;
   } // newNotification(price)
 
-  getNewID() {
-    // TODO: generate this from notifications.last +1 to string
-    return "1";
+  getNewID(coin_id, price) {
+    return `${coin_id}@${price}`;
   } // getNewID()
 
   getNewPosition(price) {
