@@ -11,10 +11,10 @@ class NotificationManager {
     this.priceEvents = undefined;
   } // constructor()
 
-  newNotification(coin_id, price) {
+  async newNotification(coin_id, price) {
     let notification_id = this.getNewID();
     let content = this.getNewContent(coin_id, price);
-    let position = this.getNewPosition();
+    let position = await this.getNewPosition(price);
     let notification = new Notification(notification_id, coin_id, price, position, content);
     this.notifications[notification_id] = notification;
     return { notification_id, notification };
@@ -33,12 +33,22 @@ class NotificationManager {
     return content;
   } // getNewContent(coin_id, price)
 
-  getNewPosition() {
-    if (true) {
-      return "above";
-    } else if (false) {
-      return "below";
-    } // if (TODO: compare to current price via coinbaseproapi)
+  getNewPosition(price) {
+    return new Promise(resolve => {
+      let position = "";
+      this.priceEvents.once('price', (current) => {
+        //console.log(current)
+        if (current > price) {
+          position = "below";
+          resolve(position);
+        } else if (current < price) {
+          position = "above";
+          resolve(position);
+        } else {
+          console.log('Tried to set price to current price...');
+        } // if current > or < price ...
+      }); // this.priceEvents.once('price', (current) => {...
+    }); // return new Promise(resolve => {...
   } // getNewPosition()
 
   listen(priceEvents) {
@@ -53,17 +63,22 @@ class NotificationManager {
 
   priceEventHandler(price) {
     for (const notification_id in this.notifications) {
-      console.log(`${notification_id}: ${JSON.stringify(this.notifications[notification_id])}`);
+      //console.log(`${notification_id}: ${JSON.stringify(this.notifications[notification_id])}`);
       if (this.notifications[notification_id].position === "above") {
         if (price >= this.notifications[notification_id].price) {
           this.notifications[notification_id].send();
+          //TODO: actually delete the notification not just the dict val
           delete this.notifications[notification_id];
         }
       } else if (this.notifications[notification_id].position === "below") {
         if (price <= this.notifications[notification_id].price) {
           this.notifications[notification_id].send();
+          //TODO: actually delete the notification not just the dict val
           delete this.notifications[notification_id];
         }
+      } else {
+        //TODO: actually delete the notification not just the dict val
+        delete this.notifications[notification_id];
       } // if position above (if price above), elif position low (if price low)
     } // for (const notification_id in this.notifications)
   } // priceEventHandler(price)

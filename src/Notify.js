@@ -48,11 +48,11 @@ class Notification {
       icon: content.icon || `./assets/${coin_id}.png`,
       sound: content.sound || true
     };
-    this.priceEvents = undefined;
+    console.log('new notification created', this)
   } // constructor(id, coin_id, price, content)
 
   send() {
-    console.log(this)
+    // console.log(this)
     if (!this.hasBeenSent) {
       this.windowsToaster.notify(
         this.content,
