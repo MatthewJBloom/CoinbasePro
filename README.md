@@ -22,6 +22,7 @@ todo:
 - [ ] make some unit tests 🙃 (the python ones were good, should be easy)
 - [ ] make app.js to run as a server listening for notification creations? maybe?
 - [x] auto-set position based on current price (NotificationManager #L36)
+- [ ] implement JSDoc
 
 
 ideas:
