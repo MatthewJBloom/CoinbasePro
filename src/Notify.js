@@ -31,22 +31,21 @@ const WindowsToaster = require('node-notifier').WindowsToaster;
  * @param {string} coin_id - The name of the coin, sets notification details
  * @param {float} price - The USD amount at which to notify
  * @param {string} position - "above" or "below" TODO: calc this from live price
- * @param {dictionary} content - The contents of the notification
  *
  */
 class Notification {
-  constructor(id, coin_id = "BTC", price = undefined, position = undefined, content = {}) {
-    this.id = id
+  constructor(id, coin_id, price, position) {
     this.windowsToaster = new WindowsToaster({withFallback: false});
+    this.id = id;
     this.hasBeenSent = false;
     this.singleUse = true;
     this.price = price;
-    this.position = position; // "above" or "below"
+    this.position = position;
     this.content = {
-      title: content.title || "Notification",
-      message: content.message || "Message",
-      icon: content.icon || `./assets/${coin_id}.png`,
-      sound: content.sound || true
+      title: "Price Alert",
+      message: `${coin_id} ${position} ${price}`,
+      icon: `./assets/${coin_id}.png`,
+      sound: true
     };
     console.log('new notification created', this)
   } // constructor(id, coin_id, price, content)

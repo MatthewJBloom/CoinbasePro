@@ -13,9 +13,8 @@ class NotificationManager {
 
   async newNotification(coin_id, price) {
     let notification_id = this.getNewID();
-    let content = this.getNewContent(coin_id, price);
     let position = await this.getNewPosition(price);
-    let notification = new Notification(notification_id, coin_id, price, position, content);
+    let notification = new Notification(notification_id, coin_id, price, position);
     this.notifications[notification_id] = notification;
     return { notification_id, notification };
   } // newNotification(price)
@@ -24,14 +23,6 @@ class NotificationManager {
     // TODO: generate this from notifications.last +1 to string
     return "1";
   } // getNewID()
-
-  getNewContent(coin_id, price) {
-    let content = {};
-    content["title"] = "Price Alert";
-    content["message"] = `${coin_id} at ${price}`;
-    content["sound"] = true;
-    return content;
-  } // getNewContent(coin_id, price)
 
   getNewPosition(price) {
     return new Promise(resolve => {

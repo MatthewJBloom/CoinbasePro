@@ -21,7 +21,7 @@ todo:
 - [x] "notification manager/router" class that listens for coinbasepro events, checks for active notifications, and can trigger them
 - [ ] make some unit tests 🙃 (the python ones were good, should be easy)
 - [ ] make app.js to run as a server listening for notification creations? maybe?
-- [ ] auto-set position based on current price (NotificationManager #L36)
+- [x] auto-set position based on current price (NotificationManager #L36)
 
 
 ideas:
