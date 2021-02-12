@@ -12,6 +12,7 @@ ideas:
 * chart trades locally
 * fake trading portfolio
 * electron app?
+* api for separate python app?
 
 
 todo:
