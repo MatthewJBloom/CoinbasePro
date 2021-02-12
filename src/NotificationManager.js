@@ -25,10 +25,21 @@ class NotificationManager {
     return notification;
   } // newNotification(price)
 
+  /**
+   * Get a new id for a new this.notifications key
+   * @param {string} coin_id
+   * @param {float} price
+   */
   getNewID(coin_id, price) {
     return `${coin_id}@${price}`;
   } // getNewID()
 
+  /**
+   * Get a promise resolving to either "above" or "below"
+   * @param {float} price
+   * - get current price from this.priceEvents.once('price')
+   * - notification price is either above or below current, return the opposite
+   */
   getNewPosition(price) {
     return new Promise(resolve => {
       let position = "";
@@ -47,16 +58,20 @@ class NotificationManager {
     }); // return new Promise(resolve => {...
   } // getNewPosition()
 
+  /**
+   * Listen to an event emitter and route it to the handler
+   * @param {EventEmitter} priceEvents - emits a float on price
+   */
   listen(priceEvents) {
-    if (priceEvents) {
-      this.priceEvents = priceEvents;
-      this.priceEvents.on('price', this.priceEventHandler.bind(this));
-      return true;
-    } else {
-      return false;
-    } // if (priceEvents)
+    this.priceEvents = priceEvents;
+    this.priceEvents.on('price', this.priceEventHandler.bind(this));
   } // listen(priceEvents)
 
+  /**
+   * Handle price changes, checking the current notifications to see if
+   *     they should be sent.
+   * @param {float} price - e.g. 50000.00 as in USD
+   */
   priceEventHandler(price) {
     for (const notification_id in this.notifications) {
       //console.log(`${notification_id}: ${JSON.stringify(this.notifications[notification_id])}`);
