@@ -1,18 +1,18 @@
 lets make a coinbase pro api integration
 
 
-versions:
-1. cli app to set price alerts
-2. electron app to see price candles and set price alerts
-3. add feature to track portfolio progress
+versions/milestones:
+0. building & testing
+1. electron app
+2. api
 
 
-ideas:
-* custom & default alerts for price changes (Win 10 notification?)
-* chart trades locally
-* fake trading portfolio
-* electron app?
-* api for separate python app?
+ideas/plans:
+* notifications for price changes ✔
+* coinbase pro clone in electron
+* advanced order form (set stop loss AND sell target)
+* trading portfolio performance stats
+* api for separate (python) app (trading bot in the future)
 
 
 todo:
@@ -28,9 +28,10 @@ todo:
 - [x] move event listening management outside of notification...
 - [x] "notification manager/router" class that listens for coinbasepro events, checks for active notifications, and can trigger them
 - [ ] make some unit tests 🙃 (the python ones were good, should be easy)
-- [ ] make app.js to run as a server listening for notification creations? maybe?
 - [x] auto-set position based on current price (NotificationManager #L36)
 - [ ] implement JSDoc
 - [ ] strip out BTC to whiteboard level, specifically from CoinbaseProFeed
 - [ ] make a CoinbaseProFeed subscription setter that takes parameters
 - [ ] make first attempt at electron app
+- [ ] either rename repo or make a new one for the electron app
+- [ ] investigate chrome os notification support
