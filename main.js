@@ -1,6 +1,8 @@
 // Modules to control application life and create native browser window
 const {app, BrowserWindow} = require('electron')
 const path = require('path')
+// Modules to access the CoinbasePro API
+const CoinbaseProFeed = require('./src/CoinbaseProFeed')
 
 function createWindow () {
   // Create the browser window.
@@ -16,7 +18,7 @@ function createWindow () {
   mainWindow.loadFile('index.html')
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  // mainWindow.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished
@@ -38,3 +40,7 @@ app.whenReady().then(() => {
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit()
 })
+
+// Start the CoinbasePro Websocket Feed
+const feed = new CoinbaseProFeed()
+feed.start()
