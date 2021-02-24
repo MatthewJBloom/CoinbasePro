@@ -1,4 +1,4 @@
-const https = require('https');
+const https = require('https')
 
 
 
@@ -21,23 +21,23 @@ class CoinbaseProAPI {
         headers: {
           'User-Agent': 'Node.js'
         }
-      };
+      }
       const req = https.request(options, res => {
-        //console.log(`statusCode: ${res.statusCode}`);
-        let body = '';
-        res.setEncoding('utf8');
+        //console.log(`statusCode: ${res.statusCode}`)
+        let body = ''
+        res.setEncoding('utf8')
         res.on('data', d => {
-          body += d;
-        });
+          body += d
+        })
         res.on('end', () => {
-          //console.log(body);
-          resolve(JSON.parse(body)["last"]);
-        });
-      });
+          //console.log(body)
+          resolve(JSON.parse(body)["last"])
+        })
+      })
       req.on('error', error => {
-        console.log(error);
-      });
-      req.end();
+        console.log(error)
+      })
+      req.end()
     }) // promise
   } // getLastPrice()
 } // CoinbaseProAPI

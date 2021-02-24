@@ -1,4 +1,4 @@
-const WindowsToaster = require('node-notifier').WindowsToaster;
+const WindowsToaster = require('node-notifier').WindowsToaster
 
 /**
  * DOCUMENTATION FOR WINDOWSTOASTER
@@ -6,7 +6,7 @@ const WindowsToaster = require('node-notifier').WindowsToaster;
  * var notifier = new WindowsToaster({
  *   withFallback: false, // Fallback to Growl or Balloons?
  *   customPath: undefined // Relative/Absolute path if you want to use your fork of SnoreToast.exe
- * });
+ * })
  *
  * notifier.notify(
  *   {
@@ -20,9 +20,9 @@ const WindowsToaster = require('node-notifier').WindowsToaster;
  *     install: undefined // String (path, application, app id).  Creates a shortcut <path> in the start menu which point to the executable <application>, appID used for the notifications.
  *   },
  *   function (error, response) {
- *     console.log(response);
+ *     console.log(response)
  *   }
- * );
+ * )
  */
 
 /**
@@ -35,18 +35,18 @@ const WindowsToaster = require('node-notifier').WindowsToaster;
  */
 class Notification {
   constructor(id, coin_id, price, position) {
-    this.windowsToaster = new WindowsToaster({withFallback: false});
-    this.id = id;
-    this.hasBeenSent = false;
-    this.singleUse = true;
-    this.price = price;
-    this.position = position;
+    this.windowsToaster = new WindowsToaster({withFallback: false})
+    this.id = id
+    this.hasBeenSent = false
+    this.singleUse = true
+    this.price = price
+    this.position = position
     this.content = {
       title: "Price Alert",
       message: `${coin_id} ${position} ${price}`,
       icon: `./assets/${coin_id}.png`,
       sound: true
-    };
+    }
     // console.log('new notification created', this)
   } // constructor(id, coin_id, price, content)
 
@@ -60,17 +60,17 @@ class Notification {
       this.windowsToaster.notify(
         this.content,
         (error, response) => {
-          console.log(error || response);
+          console.log(error || response)
         }
-      );
+      )
       if (this.singleUse) {
-        this.hasBeenSent = true;
+        this.hasBeenSent = true
       }
     } else {
-      // console.log('Notification already sent');
+      // console.log('Notification already sent')
     } // if (!this.hasBeenSent)
   } // send()
 
 } // Notification
 
-module.exports = Notification;
+module.exports = Notification
