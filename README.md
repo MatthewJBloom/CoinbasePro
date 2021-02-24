@@ -24,7 +24,7 @@ todo:
 - [x] implement ^ in whiteboard.js
 - [x] probably rename the coinbasepro references (maybe CoinbaseProFeed?)
 - [x] implement an EventEmitter with CoinbaseProFeed
-- [x] pass the EventEmitter to Notify so the Notification will "listen" for prices, etc.
+- [x] pass the EventEmitter to Notify so the Notification will "listen" for prices, etc
 - [x] move event listening management outside of notification...
 - [x] "notification manager/router" class that listens for coinbasepro events, checks for active notifications, and can trigger them
 - [ ] make some unit tests 🙃 (the python ones were good, should be easy)
@@ -32,6 +32,9 @@ todo:
 - [ ] implement JSDoc
 - [ ] strip out BTC to whiteboard level, specifically from CoinbaseProFeed
 - [ ] make a CoinbaseProFeed subscription setter that takes parameters
-- [ ] make first attempt at electron app
+- [x] make first attempt at electron app
 - [ ] either rename repo or make a new one for the electron app
 - [ ] investigate chrome os notification support
+- [ ] replace node-notifier with electron notifications (https://www.electronjs.org/docs/tutorial/notifications)
+- [ ] implement an add notification form
+- [ ] display current/active notifications somewhere
