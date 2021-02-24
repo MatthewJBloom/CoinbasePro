@@ -2,15 +2,17 @@
   "name": "coinbasepro",
   "version": "0.1.0",
   "description": "Whiteboard for the CoinbasePro API",
-  "main": "CoinbasePro.js",
+  "main": "main.js",
   "dependencies": {
+    "electron": "^11.3.0",
     "https": "^1.0.0",
     "node-notifier": "^9.0.0",
     "websocket": "^1.0.33"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "node whiteboard.js"
+    "test": "node whiteboard.js",
+    "start": "electron ."
   },
   "repository": {
     "type": "git",
