@@ -34,7 +34,7 @@ todo:
 - [ ] make a CoinbaseProFeed subscription setter that takes parameters
 - [x] make first attempt at electron app
 - [ ] either rename repo or make a new one for the electron app
-- [ ] investigate chrome os notification support
+- [x] investigate chrome os notification support (it works with electron!)
 - [x] replace node-notifier with electron notifications (https://www.electronjs.org/docs/tutorial/notifications)
 - [ ] implement an add notification form
 - [ ] display current/active notifications somewhere

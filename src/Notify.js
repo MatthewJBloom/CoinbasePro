@@ -1,4 +1,4 @@
-const {Notification} = require('electron')
+const { Notification } = require('electron')
 
 /**
  * Represents a notification
@@ -8,18 +8,20 @@ const {Notification} = require('electron')
  * @param {string} position - The target side of the current price, "above" or "below"
  *
  */
-class CPENotification {
+class Alert {
   constructor(id, coin_id, price, position) {
     this.id = id
     this.hasBeenSent = false
     this.singleUse = true
     this.price = price
     this.position = position
-    // icon: `./assets/${coin_id}.png`
     this.content = {
       title: "Price Alert",
-      body: `${coin_id} ${position} ${price}`
+      body: `${coin_id} ${position} ${price}`,
+      icon: `./assets/${coin_id}.png`,
+      silent: false
     }
+    // For other options consult https://www.electronjs.org/docs/api/notification
     // console.log('new notification created', this)
   } // constructor(id, coin_id, price, content)
 
@@ -41,4 +43,4 @@ class CPENotification {
 
 } // Notification
 
-module.exports = CPENotification
+module.exports = Alert

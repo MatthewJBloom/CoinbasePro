@@ -35,15 +35,23 @@ app.whenReady().then(() => {
   })
 
   // Start the CoinbasePro Websocket Feed
+  let coin_id = "BTC"
   const feed = new CoinbaseProFeed()
   feed.start()
 
   // Test add new notification with notification manager
   const notificationManager = new NotificationManager()
   notificationManager.listen(feed.priceEvents)
-  notificationManager.newNotification("BTC", 50650).then(notification => {
-    console.log('waiting for notification:', notification.id)
+  feed.priceEvents.once('price', (price) => {
+    console.log(`current price is $${price}`)
+    notificationManager.newNotification(coin_id, price-10).then(notification => {
+      console.log(`notification waiting for ${price-10}`)
+    })
+    notificationManager.newNotification(coin_id, price+10).then(notification => {
+      console.log(`notification waiting for ${price+10}`)
+    })
   })
+
 
 })
 
