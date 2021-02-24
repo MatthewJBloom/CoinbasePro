@@ -21,6 +21,7 @@ class Alert {
       icon: `./assets/${coin_id}.png`,
       silent: false
     }
+    this.notification = new Notification(this.content)
     // For other options consult https://www.electronjs.org/docs/api/notification
     // console.log('new notification created', this)
   } // constructor(id, coin_id, price, content)
@@ -32,7 +33,7 @@ class Alert {
    */
   send() {
     if (!this.hasBeenSent) {
-      new Notification(this.content).show()
+      this.notification.show()
       if (this.singleUse) {
         this.hasBeenSent = true
       }
