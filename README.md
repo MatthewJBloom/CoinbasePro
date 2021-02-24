@@ -35,6 +35,6 @@ todo:
 - [x] make first attempt at electron app
 - [ ] either rename repo or make a new one for the electron app
 - [ ] investigate chrome os notification support
-- [ ] replace node-notifier with electron notifications (https://www.electronjs.org/docs/tutorial/notifications)
+- [x] replace node-notifier with electron notifications (https://www.electronjs.org/docs/tutorial/notifications)
 - [ ] implement an add notification form
 - [ ] display current/active notifications somewhere

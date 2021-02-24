@@ -1,8 +1,9 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow, Notification} = require('electron')
 const path = require('path')
-// Modules to access the CoinbasePro API
+// Custom Classes
 const CoinbaseProFeed = require('./src/CoinbaseProFeed')
+const NotificationManager = require('./src/NotificationManager')
 
 function createWindow () {
   // Create the browser window.
@@ -32,6 +33,18 @@ app.whenReady().then(() => {
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
+
+  // Start the CoinbasePro Websocket Feed
+  const feed = new CoinbaseProFeed()
+  feed.start()
+
+  // Test add new notification with notification manager
+  const notificationManager = new NotificationManager()
+  notificationManager.listen(feed.priceEvents)
+  notificationManager.newNotification("BTC", 50650).then(notification => {
+    console.log('waiting for notification:', notification.id)
+  })
+
 })
 
 // Quit when all windows are closed, except on macOS. There, it's common
@@ -40,7 +53,3 @@ app.whenReady().then(() => {
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit()
 })
-
-// Start the CoinbasePro Websocket Feed
-const feed = new CoinbaseProFeed()
-feed.start()
