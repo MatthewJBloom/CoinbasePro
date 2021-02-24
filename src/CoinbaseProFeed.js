@@ -101,15 +101,13 @@ class CoinbaseProFeed {
     let resetColor = "\x1b[0m" // reset
     let color = resetColor
     if (data.side === "buy") {
-      side = "➚"
       color = "\x1b[32m" // green
     } else if (data.side === "sell"){
-      side = "➘"
       color = "\x1b[31m" // red
     }
     let amount = parseFloat(data.last_size).toFixed(8)
     let price = parseFloat(data.price).toFixed(2)
-    let message = `${timestamp} | ${product} | ${amount} @ ${color}$${price}${side}${resetColor}`
+    let message = `${timestamp} | ${product} | ${amount} @ ${color}$${price}${resetColor}`
     console.log(message)
   } // printTicker(data)
 
