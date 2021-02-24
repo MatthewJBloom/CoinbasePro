@@ -28,9 +28,9 @@ function createWindow () {
 app.whenReady().then(() => {
   createWindow()
 
+  // On macOS it's common to re-create a window in the app when the
+  // dock icon is clicked and there are no other windows open.
   app.on('activate', function () {
-    // On macOS it's common to re-create a window in the app when the
-    // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
 
@@ -44,11 +44,11 @@ app.whenReady().then(() => {
   notificationManager.listen(feed.priceEvents)
   feed.priceEvents.once('price', (price) => {
     console.log(`current price is $${price}`)
-    notificationManager.newNotification(coin_id, price-10).then(notification => {
-      console.log(`notification waiting for ${price-10}`)
+    notificationManager.newNotification(coin_id, price-50).then(notification => {
+      console.log(`notification waiting for ${price-50}`)
     })
-    notificationManager.newNotification(coin_id, price+10).then(notification => {
-      console.log(`notification waiting for ${price+10}`)
+    notificationManager.newNotification(coin_id, price+50).then(notification => {
+      console.log(`notification waiting for ${price+50}`)
     })
   })
 
