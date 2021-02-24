@@ -17,6 +17,8 @@ class CoinbaseProFeed {
     }
 
     this.configureClient()
+
+    this.start = this.startFeed
   } // constructor()
 
   configureClient() {
