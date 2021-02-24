@@ -37,8 +37,9 @@ class NotificationManager {
   /**
    * Get a promise resolving to either "above" or "below"
    * @param {float} price
-   * - get current price from this.priceEvents.once('price')
-   * - notification price is either above or below current, return the opposite
+   * - Get current price from this.priceEvents.once('price')
+   * - Notification price is either above or below current price.
+   * - Return the opposite, for priceEventHandler
    */
   getNewPosition(price) {
     return new Promise(resolve => {
