@@ -9,11 +9,12 @@
   </head>
   <body>
     <h1>CoinbasePro-Electron</h1>
-    <!-- We are using Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    and Electron <span id="electron-version"></span>. -->
+    <div id="current_price_container"></div>
 
-    <!-- You can also require other files to run in this process -->
-    <!-- <script src="./renderer.js"></script> -->
+    <!-- scripts -->
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+
+    <script src="current_price.js"></script>
   </body>
 </html>

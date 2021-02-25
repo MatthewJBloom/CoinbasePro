@@ -36,5 +36,7 @@ todo:
 - [ ] either rename repo or make a new one for the electron app
 - [x] investigate chrome os notification support (it works with electron!)
 - [x] replace node-notifier with electron notifications (https://www.electronjs.org/docs/tutorial/notifications)
+- [ ] show price in app
 - [ ] implement an add notification form
 - [ ] display current/active notifications somewhere
+- [ ] try out Reactjs
