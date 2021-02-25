@@ -31,7 +31,7 @@
   "build": {
     "appId": "app.id",
     "win": {
-      "target": "nsis"
+      "target": "portable"
     }
   }
 }
